@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<center>
+   <h1 style="margin-top: 20px;">Your Profile</h1>
+   <br> <br> 
+   
+   {% if user.profile_image != "default" %}
+   <img src="../static/{{user.profile_image}}" alt="Profile" class="profile_image" > <br> <br>
+   {% else %}
+   <img src="../static/default.png" alt="Profile" class="profile_image"> 
+   <p>No profile image chosen</p> <br>
+   <div class="form_container">
+      <form method="post" enctype="multipart/form-data">
+         <div class="form-group">
+            <input type="file" class="form-control" id="profileImage" name="profileImage">
+         </div>
+         <button type="submit" class="btn btn-primary">Add profile picture</button>
+      </form>
+   </div>
+   <br><br>
+   {% endif %}
+
+</center>
+   
+   <ul class="list-group go-down">
+      <li class="list-group-item list-group-item-action"> Username: {{user.username}} </li>
+      <li class="list-group-item list-group-item-action"> First name: {{user.first_name}} </li>
+      <li class="list-group-item list-group-item-action"> Last name: {{user.last_name}} </li>
+      <li class="list-group-item list-group-item-action"> Email address: {{user.email}} </li>
+      <li class="list-group-item list-group-item-action"> Access type: {{user.type}} </li>
+   </ul>
+ 
+   <br><br>
+{% endblock %}

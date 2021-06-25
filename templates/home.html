@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.type == "User" %}
+<h1 align="center" style="margin-top: 20px;">Welcome {{user.first_name}} {{user.last_name}}!</h1> <hr>
+{% elif user.type == "Admin" %}
+<h1 align="center" style="margin-top: 20px;">Admin Panel</h1> 
+<br><br>
+<table class="table">
+   <thead>
+     <tr>
+       <th scope="col">User ID</th>
+       <th scope="col">First name</th>
+       <th scope="col">Last name</th>
+       <th scope="col">Username</th>
+       <th scope="col">Email</th>
+       <th scope="col">Access Type</th>
+       <th scope="col"></th>
+       <th scope="col"></th>
+       <th scope="col"></th>
+     </tr>
+   </thead>
+   <tbody>
+   {% for person in all_users if person.type == "User" %}
+     <tr>
+       <th scope="row">{{person.id}}</th>
+       <td>{{person.first_name}}</td>
+       <td>{{person.last_name}}</td>
+       <td>{{person.username}}</td>
+       <td>{{person.email}}</td>
+       <td>{{person.type}}</td>
+       <td><a href="/delete-user/{{person.id}}" class="btn btn-primary">Delete</a></td>
+       <td><a href="/edit-user/{{person.id}}" class="btn btn-primary">Edit</a></td>
+       <td><a href="/make-admin/{{person.id}}" class="btn btn-primary">Make admin</a></td>
+     </tr>
+   {% endfor %}
+   </tbody>
+ </table> <br><br>
+
+<center>
+
+<a href="/add-user" class="btn btn-primary">Add new user</a>
+
+</center> <br> <br>
+
+{% elif user.type == "Super" %}
+
+<h1 align="center" style="margin-top: 20px;">Super User Panel</h1>
+
+<h4 align="center" style="margin-top: 30px;">Admins</h4> <br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Admin ID</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in all_users if person.type == "Admin" %}
+    <tr>
+      <th scope="row">{{person.id}}</th>
+      <td>{{person.first_name}}</td>
+      <td>{{person.last_name}}</td>
+      <td>{{person.username}}</td>
+      <td>{{person.email}}</td>
+      <td><a href="/delete-user/{{person.id}}" class="btn btn-primary">Delete</a></td>
+      <td><a href="/edit-user/{{person.id}}" class="btn btn-primary">Edit</a></td>
+      <td><a href="/demote-admin/{{person.id}}" class="btn btn-primary">Demote</a></td>
+      <td><a href="/make-super/{{person.id}}" class="btn btn-primary">Make super</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> <br> <center>
+<a href="/add-admin" class="btn btn-primary">Add admin</a>
+</center>
+<hr>  
+<h4 align="center" style="margin-top: 30px;">Users</h4> <br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for person in all_users if person.type == "User" %}
+    <tr>
+      <th scope="row">{{person.id}}</th>
+      <td>{{person.first_name}}</td>
+      <td>{{person.last_name}}</td>
+      <td>{{person.username}}</td>
+      <td>{{person.email}}</td>
+      <td><a href="/delete-user/{{person.id}}" class="btn btn-primary">Delete</a></td>
+      <td><a href="/edit-user/{{person.id}}" class="btn btn-primary">Edit</a></td>
+      <td><a href="/make-admin/{{person.id}}" class="btn btn-primary">Promote</a></td>
+      <td><a href="/make-super/{{person.id}}" class="btn btn-primary">Make super</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table> <br> <center>
+<a href="/add-user" class="btn btn-primary">Add user</a>
+</center>
+<br><br><br>
+{% endif %}
+
+{% endblock %}

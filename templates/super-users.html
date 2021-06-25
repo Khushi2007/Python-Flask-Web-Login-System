@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Super Users{% endblock %}
+
+{% block content %}
+
+<h1 align="center" style="margin-top: 20px;">Super Users</h1> <br>
+
+<table class="table">
+   <thead>
+     <tr>
+       <th scope="col">Super user ID</th>
+       <th scope="col">First name</th>
+       <th scope="col">Last name</th>
+       <th scope="col">Username</th>
+       <th scope="col">Email</th>
+     </tr>
+   </thead>
+   <tbody>
+      {% for super_user in all_super_users if super_user.type == "Super" %}
+     <tr>
+       <th scope="row">{{super_user.id}}</th>
+       <td>{{super_user.first_name}}</td>
+       <td>{{super_user.last_name}}</td>
+       <td>{{super_user.username}}</td>
+       <td>{{super_user.email}}</td>
+     </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+
+{% endblock %}
